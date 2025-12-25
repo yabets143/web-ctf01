@@ -1,0 +1,33 @@
+<%- include('partials/header', { title: 'Messages • Parameter Pollution CTF' }) %>
+
+<div class="row g-4">
+  <div class="col-12 col-lg-6">
+    <div class="card">
+      <div class="card-header"><strong>Post a Message</strong></div>
+      <div class="card-body">
+        <form method="post" action="/messages" class="d-flex gap-2">
+          <input class="form-control" name="text" placeholder="Say something..." />
+          <button class="btn btn-primary" type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header"><strong>Recent Messages</strong></div>
+      <div class="list-group list-group-flush">
+        <% if (messages.length === 0) { %>
+          <div class="list-group-item">No messages yet.</div>
+        <% } %>
+        <% messages.forEach(m => { %>
+          <div class="list-group-item">
+            <div><strong><%= m.from %></strong>: <%= m.text %></div>
+            <div class="text-secondary small"><%= new Date(m.at).toLocaleString() %></div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
